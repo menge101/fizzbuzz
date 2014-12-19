@@ -1,5 +1,6 @@
-require "minitest/autorun"
-require './fizzbuzz'
+require 'minitest/autorun'
+require_relative 'fizzbuzz'
+
 
 class FizzbuzzTest < MiniTest::Test
   def test_fizzbuzz
@@ -14,7 +15,7 @@ class FizzbuzzTest < MiniTest::Test
     
     assert_equal 'Fizzbuzz', fb.fizzbuzz(0), "Zero mode: #{fb.zero_mode}"
     fb.change_mode
-    assert_equal 0.to_i, fb.fizzbuzz(0)
+    assert_equal 0.to_i, fb.fizzbuzz(0), "Zero mode: #{fb.zero_mode}"
 
     assert_raises(TypeError) { fb.fizzbuzz("a string") }
     assert_raises(TypeError) { fb.fizzbuzz(12.2) }    
@@ -40,5 +41,6 @@ class FizzbuzzTest < MiniTest::Test
     assert fb.zero_mode
     fb.change_mode(false)
     refute fb.zero_mode
+    assert_raises(ArgumentError) { fb.change_mode('a string') }
   end
 end

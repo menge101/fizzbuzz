@@ -1,7 +1,7 @@
 #!/usr/bin/ruby
 
   # Zero is divisible by 3 and five evenly, as well as every other number
-  # Zero getting Fizzbuzz is therefore no necessarily in line with the 
+  # Zero getting Fizzbuzz is therefore not necessarily in line with the
   # specifications.  Setting zero_mode to true will cause '0' to be 
   # returned for '0'.  False will return 'Fizzbuzz'
 
@@ -22,7 +22,11 @@ class FizzBuzz
     if setting.nil?
       @zero_mode = !zero_mode
     else
-      @zero_mode = setting if SETTING_ENUM.include?(zero_mode)
+      if SETTING_ENUM.include?(setting)
+        @zero_mode = setting
+      else
+        raise ArgumentError.new("Argument, #{setting}, must be one of [#{SETTING_ENUM.join(', ')}]")
+      end
     end
   end
 
@@ -32,7 +36,7 @@ class FizzBuzz
     fizz = ->(x) {x % 3 == 0}
     buzz = ->(x) {x % 5 == 0}
     fizzbuzz = ->(x) {fizz[x] && buzz[x]}
-    return case x
+    case x
       when zero then zero_value
       when fizzbuzz then 'Fizzbuzz'
       when fizz then 'Fizz'
